@@ -1,0 +1,9 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Module directory
+.terraform/
+
+# Don't include local variables
+terraform.tfvars

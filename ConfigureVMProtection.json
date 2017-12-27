@@ -1,0 +1,38 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vaultName": {
+            "type": "String"
+        },
+        "policyName": {
+            "type": "String",
+            "defaultValue": "DefaultPolicy"
+        },
+        "fabricName": {
+            "type": "String",
+            "defaultValue": "Azure"
+        },
+        "protectionContainers": {
+            "type": "String"
+        },
+        "protectedItems": {
+            "type": "String"
+        },
+        "sourceResourceIds": {
+            "type": "String"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems",
+            "name": "[concat(parameters('vaultName'), '/', parameters('fabricName'), '/',parameters('protectionContainers'), '/', parameters('protectedItems'))]",
+            "apiVersion": "2016-06-01",
+            "properties": {
+                "protectedItemType": "Microsoft.ClassicCompute/virtualMachines",
+                "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/backupPolicies', parameters('vaultName'), parameters('policyName'))]",
+                "sourceResourceId": "[parameters('sourceResourceIds')]"
+            }
+        }
+    ]
+}
