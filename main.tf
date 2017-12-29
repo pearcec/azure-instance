@@ -2,6 +2,7 @@
 variable "computer_name"  { type = "string" }
 variable "ssh_keys"       { type = "map" }
 variable "cloud_shell_ip" { type = "string" }
+variable "vm_size"        { type = "string" }
 
 # Authentication via az login Azure Cloud shell by default
 # Configure the Azure Provider
@@ -103,7 +104,7 @@ resource "azurerm_virtual_machine" "azure-instance" {
   location              = "East US"
   resource_group_name   = "${azurerm_resource_group.rg.name}"
   network_interface_ids = ["${azurerm_network_interface.azure-instance.id}"]
-  vm_size               = "Standard_B1S"
+  vm_size               = "${var.vm_size}"
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   # delete_os_disk_on_termination = true
